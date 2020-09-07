@@ -9,10 +9,12 @@ use WPEloquent\Models\Comment;
 use WPEloquent\Models\Post;
 use WPEloquent\Models\UserMeta;
 use WPEloquent\Traits\HasMeta;
+use WPEloquent\Traits\HasRoles;
 
 class User extends Model
 {
     use HasMeta;
+    use HasRoles;
 
     /**
      * The name of the "created at" column.

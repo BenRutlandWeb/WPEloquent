@@ -81,7 +81,7 @@ class Post extends Model
      */
     public function getContentAttribute(): string
     {
-        return $this->post_content;
+        return preg_replace('/<!--.*?-->/', '', $this->post_content);
     }
 
     /**

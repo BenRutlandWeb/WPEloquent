@@ -43,17 +43,17 @@ Database::connect();
 
 // Advanced usage
 Database::connect(
-	[
-		'driver'    => 'mysql',
-		'prefix'    => 'wp_',
-		'host'      => DB_HOST,
-		'database'  => DB_NAME,
-		'username'  => DB_USER,
-		'password'  => DB_PASSWORD,
-		'port'      => '3306',
-		'charset'   => 'utf8',
-		'collation' => 'utf8_unicode_ci',
-	]
+    [
+        'driver'    => 'mysql',
+        'prefix'    => 'wp_',
+        'host'      => DB_HOST,
+        'database'  => DB_NAME,
+        'username'  => DB_USER,
+        'password'  => DB_PASSWORD,
+        'port'      => '3306',
+        'charset'   => 'utf8',
+        'collation' => 'utf8_unicode_ci',
+    ]
 );
 ```
 

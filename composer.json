@@ -1,20 +1,20 @@
 {
-    "name": "brw/wp-eloquent",
-    "description": "Eloquent models for WordPress",
-    "require": {
-        "illuminate/database": "^7.27",
-        "staudenmeir/eloquent-has-many-deep": "^1.7"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Ben Rutland",
-            "email": "info@benrutlandweb.co.uk"
-        }
-    ],
-		"autoload": {
-        "psr-4": {
-            "WPEloquent\\": "wp-eloquent/"
-        }
+  "name": "brw/wp-eloquent",
+  "description": "Eloquent models for WordPress",
+  "require": {
+    "illuminate/database": "^7.27",
+    "staudenmeir/eloquent-has-many-deep": "^1.7"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ben Rutland",
+      "email": "info@benrutlandweb.co.uk"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "WPEloquent\\": "src/"
+    }
+  }
 }

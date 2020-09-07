@@ -6,12 +6,12 @@ Eloquent models for WordPress
 
 [WPDB schema](https://codex.wordpress.org/images/8/83/WP_27_dbsERD.png)
 
-Post->hasMany(TermRelationship)???
-TermRelationship->belongsTo(Post)???
-TermRelationship->belongsTo(Taxonomy)???
-Taxonomy->hasMany(TermRelationship)???
-Taxonomy->belongsTo(Term)
-Term->hasMany(Taxonomy)
+- Post->hasMany(TermRelationship)???
+- TermRelationship->belongsTo(Post)???
+- TermRelationship->belongsTo(Taxonomy)???
+- Taxonomy->hasMany(TermRelationship)???
+- Taxonomy->belongsTo(Term)
+- Term->hasMany(Taxonomy)
 
 ## Usage
 
@@ -26,8 +26,8 @@ use WPEloquent\Database;
 Database::connect(
 	[
 		'host'     => DB_HOST,
-		'name'     => DB_NAME,
-		'user'     => DB_USER,
+		'database' => DB_NAME,
+		'username' => DB_USER,
 		'password' => DB_PASSWORD,
 	]
 );

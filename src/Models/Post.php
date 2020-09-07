@@ -109,7 +109,7 @@ class Post extends Model
 	}
 
 	/**
-	 * Get the Post created at date.
+	 * Get the created at date.
 	 *
 	 * @return Carbon\Carbon
 	 */
@@ -119,7 +119,7 @@ class Post extends Model
 	}
 
 	/**
-	 * Get the Post updated at date.
+	 * Get the updated at date.
 	 *
 	 * @return Carbon\Carbon
 	 */

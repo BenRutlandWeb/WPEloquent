@@ -13,6 +13,22 @@ Eloquent models for WordPress
 - Taxonomy->belongsTo(Term)
 - Term->hasMany(Taxonomy)
 
+## Models
+
+- Post
+- Page
+- Attachment
+- PostMeta
+- Term
+- TermMeta
+- User
+- UserMeta
+- Comment
+- CommentMeta
+- Option
+- ~~Taxonomy~~
+- ~~TermRelationship~~
+
 ## Usage
 
 _functions.php_
@@ -22,13 +38,21 @@ _functions.php_
 
 use WPEloquent\Database;
 
-// Connect WPEloquent to the database
+// Basic usage
+Database::connect();
+
+// Advanced usage
 Database::connect(
 	[
-		'host'     => DB_HOST,
-		'database' => DB_NAME,
-		'username' => DB_USER,
-		'password' => DB_PASSWORD,
+		'driver'    => 'mysql',
+		'prefix'    => 'wp_',
+		'host'      => DB_HOST,
+		'database'  => DB_NAME,
+		'username'  => DB_USER,
+		'password'  => DB_PASSWORD,
+		'port'      => '3306',
+		'charset'   => 'utf8',
+		'collation' => 'utf8_unicode_ci',
 	]
 );
 ```
@@ -40,7 +64,7 @@ _index.php_
 
 use WPEloquent\Models\Post;
 
-$posts = Post::limit(10)->where('post_status', '=', 'publish')->get();
+$posts = Post::limit(10)->where('post_status', 'publish')->get();
 
 $posts->each(function($post) {
     // extract into a partial

@@ -1,38 +1,55 @@
 <?php
+
 namespace WPEloquent;
 
-use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Database\Capsule\Manager;
 
 class Database
 {
-	protected static $capsule;
+	/**
+	 * The Manager instance.
+	 *
+	 * @var \Illuminate\Database\Capsule\Manager
+	 */
+	protected static $instance;
 
-	public static function connect($options = [])
+	/**
+	 * Connect to the database.
+	 *
+	 * @param array $options
+	 * @return \Illuminate\Database\Capsule\Manager
+	 */
+	public static function connect(array $options = []): Manager
 	{
 		$defaults = [
-		  'driver'    => 'mysql',
-		  'prefix'    => 'wp_',
-			'host'      => '',
-			'database'  => '',
-			'username'  => '',
-			'password'  => '',
+			'driver'    => 'mysql',
+			'prefix'    => 'wp_',
+			'host'      => DB_HOST,
+			'database'  => DB_NAME,
+			'username'  => DB_USER,
+			'password'  => DB_PASSWORD,
 			'port'      => '3306',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 		];
 
-		if (is_null(self::$capsule)) {
+		$instance = self::getInstance();
+		$instance->addConnection(array_merge($defaults, $options));
+		$instance->bootEloquent();
 
-				self::$capsule = new Capsule();
-								
-				self::$capsule->addConnection(array_merge($defaults, $options));
-				self::$capsule->bootEloquent();
-		}
-		return self::$capsule;
+		return $instance;
 	}
 
-	public static function getConnection()
+	/**
+	 * Return the instance of the Manager.
+	 *
+	 * @return \Illuminate\Database\Capsule\Manager
+	 */
+	public static function getInstance(): Manager
 	{
-		return self::$capsule->getConnection();
+		if (!self::$instance) {
+			self::$instance = new Manager();
+		}
+		return self::$instance;
 	}
 }

@@ -53,7 +53,7 @@ class User extends Model
 	}
 
 	/**
-	 * Get the User created at date.
+	 * Get the created at date.
 	 *
 	 * @return Carbon\Carbon
 	 */

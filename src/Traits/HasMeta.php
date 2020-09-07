@@ -10,11 +10,9 @@ trait HasMeta
 	 * @param string $key
 	 * @return mixed
 	 */
-	public function getMeta($key)
+	public function getMeta(string $key)
 	{
-		$value = $this->meta()
-			->where('meta_key', '=', $key)
-			->value('meta_value');
+		$value = $this->meta()->where('meta_key', $key)->value('meta_value');
 
 		return maybe_unserialize($value);
 	}

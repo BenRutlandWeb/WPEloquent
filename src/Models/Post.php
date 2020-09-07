@@ -2,132 +2,227 @@
 
 namespace WPEloquent\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use WPEloquent\Models\Attachment;
 use WPEloquent\Models\Comment;
 use WPEloquent\Models\PostMeta;
 use WPEloquent\Models\Taxonomy;
-use WPEloquent\Models\Term;
 use WPEloquent\Models\TermRelationship;
 use WPEloquent\Models\User;
 use WPEloquent\Scopes\PostTypeScope;
 use WPEloquent\Traits\HasMeta;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
 	use HasMeta;
-	use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
-	
+
+	/**
+	 * The name of the "created at" column.
+	 *
+	 * @var string
+	 */
 	const CREATED_AT = 'post_date';
-	
+
+	/**
+	 * The name of the "updated at" column.
+	 *
+	 * @var string
+	 */
 	const UPDATED_AT = 'post_modified';
-	
+
+	/**
+	 * The table associated with the model.
+	 *
+	 * @var string
+	 */
 	protected $table = 'posts';
-	
+
+	/**
+	 * The primary key for the model.
+	 *
+	 * @var string
+	 */
 	protected $primaryKey = 'ID';
-	
+
+	/**
+	 * The post type for the Post model.
+	 *
+	 * @var string
+	 */
 	public $postType = 'post';
-	
-		
-	protected static function boot()
+
+	/**
+	 * Bootstrap the model and its traits.
+	 *
+	 * @return void
+	 */
+	protected static function boot(): void
 	{
-			parent::boot();
-			
-			static::addGlobalScope(new PostTypeScope);
+		parent::boot();
+
+		static::addGlobalScope(new PostTypeScope);
 	}
-	
-	// aliases
-	
-	public function getTitleAttribute()
+
+	/**
+	 * Get the Post title.
+	 *
+	 * @return string
+	 */
+	public function getTitleAttribute(): string
 	{
 		return $this->post_title;
 	}
-	
-	public function getContentAttribute()
+
+	/**
+	 * Get the Post content.
+	 */
+	public function getContentAttribute(): string
 	{
 		return $this->post_content;
 	}
-	
-	public function getStatusAttribute()
+
+	/**
+	 * Get the Post status.
+	 */
+	public function getStatusAttribute(): string
 	{
 		return $this->post_status;
-	}	
-	
-	public function getTypeAttribute()
+	}
+
+	/**
+	 * Get the Post type.
+	 */
+	public function getTypeAttribute(): string
 	{
 		return $this->post_type;
 	}
-	
-	public function getSlugAttribute()
+
+	/**
+	 * Get the Post slug.
+	 */
+	public function getSlugAttribute(): string
 	{
 		return $this->post_name;
-	}	
-	
-	public function getCreatedAtAttribute()
+	}
+
+	/**
+	 * Get the Post created at date.
+	 *
+	 * @return Carbon\Carbon
+	 */
+	public function getCreatedAtAttribute(): Carbon
 	{
 		return $this->post_date;
 	}
-	
-	public function getUpdatedAtAttribute()
+
+	/**
+	 * Get the Post updated at date.
+	 *
+	 * @return Carbon\Carbon
+	 */
+	public function getUpdatedAtAttribute(): Carbon
 	{
 		return $this->post_modified;
 	}
-	
-	// methods
-	
-	public function featuredImage($size = 'post-thumbnail', $attr = '')
+
+	/**
+	 * Return the featured image HTML.
+	 *
+	 * @param string|array $size
+	 * @param string|array $attr
+	 * @return string
+	 */
+	public function featuredImage($size = 'post-thumbnail', $attr = ''): string
 	{
 		return wp_get_attachment_image((int) $this->getMeta('_thumbnail_id'), $size, false, $attr);
 	}
-	
-	// scopes
-	
-	public function scopePublished($query)
+
+	/**
+	 * Scope the Post query to published posts.
+	 *
+	 * @param  \Illuminate\Database\Eloquent\Builder  $query
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopePublished(Builder $query): Builder
 	{
-		return $query->where('post_status' ,'=', 'publish');
+		return $query->where('post_status', '=', 'publish');
 	}
-	
-	// relationships
-	
-	public function author()
+
+	/**
+	 * Get the Post author.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\Relation
+	 */
+	public function author(): Relation
 	{
 		return $this->belongsTo(User::class, 'post_author', 'ID');
 	}
-	
-	public function comments()
+
+	/**
+	 * Get the Post comments.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\Relation
+	 */
+	public function comments(): Relation
 	{
 		return $this->hasMany(Comment::class, 'comment_post_ID', 'ID');
 	}
-	
-	public function meta()
+
+	/**
+	 * Get the Post meta.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\Relation
+	 */
+	public function meta(): Relation
 	{
 		return $this->hasMany(PostMeta::class, 'post_id', 'ID');
 	}
-	
-	public function attachments()
+
+	/**
+	 * Get the Post attachments.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\Relation
+	 */
+	public function attachments(): Relation
 	{
 		return $this->hasMany(Attachment::class, 'post_parent', 'ID');
 	}
 
-	public function terms()
+	/**
+	 * Get the Post terms.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\Relation
+	 */
+	public function terms(): Relation
 	{
-		return $this->hasManyDeep(
-			Term::class,
-			[TermRelationship::class, Taxonomy::class],
-			['object_id', 'term_id', 'term_id'],
-			['ID', 'term_taxonomy_id', 'term_taxonomy_id']
+		return $this->hasManyThrough(
+			Taxonomy::class,
+			TermRelationship::class,
+			'object_id',
+			'term_taxonomy_id'
 		);
-  }
-	
-	public function categories()
+	}
+
+	/**
+	 * Get the Post categories.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\Relation
+	 */
+	public function categories(): Relation
 	{
 		return $this->terms()->where('taxonomy', '=', 'category');
 	}
 
-	public function tags()
+	/**
+	 * Get the Post tags.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\Relation
+	 */
+	public function tags(): Relation
 	{
 		return $this->terms()->where('taxonomy', '=', 'post_tag');
 	}
-
 }

@@ -2,8 +2,7 @@
   "name": "brw/wp-eloquent",
   "description": "Eloquent models for WordPress",
   "require": {
-    "illuminate/database": "^7.27",
-    "staudenmeir/eloquent-has-many-deep": "^1.7"
+    "illuminate/database": "^7.27"
   },
   "license": "MIT",
   "authors": [

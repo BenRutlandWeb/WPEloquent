@@ -1,6 +1,11 @@
 {
   "name": "brw/wp-eloquent",
   "description": "Eloquent models for WordPress",
+  "keywords": [
+    "WordPress",
+    "Eloquent",
+    "Laravel"
+  ],
   "require": {
     "illuminate/database": "^7.27"
   },

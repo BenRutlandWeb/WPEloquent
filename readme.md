@@ -4,16 +4,16 @@ Eloquent models for WordPress
 
 ## TODO
 
+- Add more post attr/methods for easier templating
 - Document terms/taxonomy models
-
-[WPDB schema](https://codex.wordpress.org/images/8/83/WP_27_dbsERD.png)
-
-- Post->hasMany(TermRelationship)???
-- TermRelationship->belongsTo(Post)???
-- TermRelationship->belongsTo(Taxonomy)???
-- Taxonomy->hasMany(TermRelationship)???
-- Taxonomy->belongsTo(Term)
-- Term->hasMany(Taxonomy)
+- Term/post relationships with tax etc. Bit confusing TBH...
+  - [WPDB schema](https://codex.wordpress.org/images/8/83/WP_27_dbsERD.png)
+  - Post->hasMany(TermRelationship)???
+  - TermRelationship->belongsTo(Post)???
+  - TermRelationship->belongsTo(Taxonomy)???
+  - Taxonomy->hasMany(TermRelationship)???
+  - Taxonomy->belongsTo(Term)
+  - Term->hasMany(Taxonomy)
 
 ## Models
 

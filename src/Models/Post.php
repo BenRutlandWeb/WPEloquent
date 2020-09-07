@@ -48,7 +48,7 @@ class Post extends Model
 	protected $primaryKey = 'ID';
 
 	/**
-	 * The post type for the Post model.
+	 * The post type for the model.
 	 *
 	 * @var string
 	 */

@@ -52,7 +52,7 @@ class Comment extends Model
     }
 
     /**
-     * Get the comment parent.
+     * Get the comment parent ID.
      *
      * @return integer
      */

@@ -178,7 +178,7 @@ class Post extends Model
      */
     public function comments(): Relation
     {
-        return $this->hasMany(Comment::class, 'comment_post_ID')->approved();
+        return $this->hasMany(Comment::class, 'comment_post_ID');
     }
 
     /**

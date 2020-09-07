@@ -119,6 +119,6 @@ class Comment extends Model
      */
     public function replies(): Relation
     {
-        return $this->hasMany(Comment::class, 'comment_parent')->approved();
+        return $this->hasMany(Comment::class, 'comment_parent');
     }
 }

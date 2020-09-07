@@ -46,6 +46,6 @@ class UserMeta extends Model
      */
     public function user(): Relation
     {
-        return $this->belongsTo(User::class, 'user_id', 'ID');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

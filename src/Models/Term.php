@@ -39,6 +39,6 @@ class Term extends Model
      */
     public function meta(): Relation
     {
-        return $this->hasMany(TermMeta::class, 'term_id', 'term_id');
+        return $this->hasMany(TermMeta::class, 'term_id');
     }
 }

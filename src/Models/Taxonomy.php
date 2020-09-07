@@ -24,12 +24,12 @@ class Taxonomy extends Model
 
     public function scopeCategory($query)
     {
-        return $query->where('taxonomy', '=', 'category');
+        return $query->where('taxonomy', 'category');
     }
 
     public function scopeTag($query)
     {
-        return $query->where('taxonomy', '=', 'post_tag');
+        return $query->where('taxonomy', 'post_tag');
     }
 
     // relationships

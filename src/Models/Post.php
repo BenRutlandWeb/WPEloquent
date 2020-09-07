@@ -109,6 +109,16 @@ class Post extends Model
     }
 
     /**
+     * Return the post URL.
+     *
+     * @return string
+     */
+    public function getUrlAttribute(): string
+    {
+        return get_permalink($this->ID);
+    }
+
+    /**
      * Get the created at date.
      *
      * @return Carbon\Carbon
@@ -137,7 +147,7 @@ class Post extends Model
      */
     public function featuredImage($size = 'post-thumbnail', $attr = ''): string
     {
-        return wp_get_attachment_image((int) $this->getMeta('_thumbnail_id'), $size, false, $attr);
+        return wp_get_attachment_image($this->getMeta('_thumbnail_id'), $size, false, $attr);
     }
 
     /**
@@ -148,7 +158,7 @@ class Post extends Model
      */
     public function scopePublished(Builder $query): Builder
     {
-        return $query->where('post_status', '=', 'publish');
+        return $query->where('post_status', 'publish');
     }
 
     /**
@@ -158,7 +168,7 @@ class Post extends Model
      */
     public function author(): Relation
     {
-        return $this->belongsTo(User::class, 'post_author', 'ID');
+        return $this->belongsTo(User::class, 'post_author');
     }
 
     /**
@@ -168,7 +178,7 @@ class Post extends Model
      */
     public function comments(): Relation
     {
-        return $this->hasMany(Comment::class, 'comment_post_ID', 'ID');
+        return $this->hasMany(Comment::class, 'comment_post_ID')->approved();
     }
 
     /**
@@ -178,7 +188,7 @@ class Post extends Model
      */
     public function meta(): Relation
     {
-        return $this->hasMany(PostMeta::class, 'post_id', 'ID');
+        return $this->hasMany(PostMeta::class, 'post_id');
     }
 
     /**
@@ -188,7 +198,7 @@ class Post extends Model
      */
     public function attachments(): Relation
     {
-        return $this->hasMany(Attachment::class, 'post_parent', 'ID');
+        return $this->hasMany(Attachment::class, 'post_parent');
     }
 
     /**
@@ -213,7 +223,7 @@ class Post extends Model
      */
     public function categories(): Relation
     {
-        return $this->terms()->where('taxonomy', '=', 'category');
+        return $this->terms()->where('taxonomy', 'category');
     }
 
     /**
@@ -223,6 +233,6 @@ class Post extends Model
      */
     public function tags(): Relation
     {
-        return $this->terms()->where('taxonomy', '=', 'post_tag');
+        return $this->terms()->where('taxonomy', 'post_tag');
     }
 }

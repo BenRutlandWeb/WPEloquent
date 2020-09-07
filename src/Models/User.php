@@ -45,6 +45,36 @@ class User extends Model
     protected $primaryKey = 'ID';
 
     /**
+     * Get the User name.
+     *
+     * @return string
+     */
+    public function getNameAttribute(): string
+    {
+        return $this->display_name;
+    }
+
+    /**
+     * Get the User name.
+     *
+     * @return string
+     */
+    public function getFirstNameAttribute(): string
+    {
+        return $this->getMeta('first_name');
+    }
+
+    /**
+     * Get the User name.
+     *
+     * @return string
+     */
+    public function getLastNameAttribute(): string
+    {
+        return $this->getMeta('last_name');
+    }
+
+    /**
      * Get the User email address.
      *
      * @return string
@@ -71,7 +101,7 @@ class User extends Model
      */
     public function posts(): Relation
     {
-        return $this->hasMany(Post::class, 'post_author', 'ID');
+        return $this->hasMany(Post::class, 'post_author');
     }
 
     /**
@@ -81,7 +111,7 @@ class User extends Model
      */
     public function comments(): Relation
     {
-        return $this->hasMany(Comment::class, 'user_id', 'ID');
+        return $this->hasMany(Comment::class, 'user_id');
     }
 
     /**
@@ -91,6 +121,6 @@ class User extends Model
      */
     public function meta(): Relation
     {
-        return $this->hasMany(UserMeta::class, 'user_id', 'ID');
+        return $this->hasMany(UserMeta::class, 'user_id');
     }
 }

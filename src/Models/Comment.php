@@ -3,9 +3,11 @@
 namespace WPEloquent\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use WPEloquent\Traits\HasMeta;
+use WPEloquent\Scopes\ApprovedCommentScope;
 
 class Comment extends Model
 {
@@ -50,6 +52,16 @@ class Comment extends Model
     }
 
     /**
+     * Get the comment parent.
+     *
+     * @return integer
+     */
+    public function getParentAttribute(): int
+    {
+        return $this->comment_parent;
+    }
+
+    /**
      * Get the created at date.
      *
      * @return Carbon\Carbon
@@ -60,13 +72,24 @@ class Comment extends Model
     }
 
     /**
+     * Scope the Comment query to approved posts.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeApproved(Builder $query): Builder
+    {
+        return $query->where('comment_approved', 1);
+    }
+
+    /**
      * Get the Comment post.
      *
      * @return \Illuminate\Database\Eloquent\Relations\Relation
      */
     public function post(): Relation
     {
-        return $this->belongsTo(Post::class, 'comment_post_ID', 'ID');
+        return $this->belongsTo(Post::class, 'comment_post_ID');
     }
 
     /**
@@ -76,7 +99,7 @@ class Comment extends Model
      */
     public function meta(): Relation
     {
-        return $this->hasMany(CommentMeta::class, 'comment_id', 'comment_ID');
+        return $this->hasMany(CommentMeta::class, 'comment_id');
     }
 
     /**
@@ -86,6 +109,16 @@ class Comment extends Model
      */
     public function author(): Relation
     {
-        return $this->belongsTo(User::class, 'user_id', 'ID');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Get the Comment author.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function replies(): Relation
+    {
+        return $this->hasMany(Comment::class, 'comment_parent')->approved();
     }
 }

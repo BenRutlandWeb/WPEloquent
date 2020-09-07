@@ -21,6 +21,6 @@ class Attachment extends Post
      */
     public function post(): Relation
     {
-        return $this->belongsTo(Post::class, 'post_parent', 'ID');
+        return $this->belongsTo(Post::class, 'post_parent');
     }
 }

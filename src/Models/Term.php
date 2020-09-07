@@ -9,36 +9,36 @@ use WPEloquent\Traits\HasMeta;
 
 class Term extends Model
 {
-	use HasMeta;
+    use HasMeta;
 
-	/**
-	 * Indicates if the model should be timestamped.
-	 *
-	 * @var bool
-	 */
-	public $timestamps = false;
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
 
-	/**
-	 * The table associated with the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'terms';
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'terms';
 
-	/**
-	 * The primary key for the model.
-	 *
-	 * @var string
-	 */
-	protected $primaryKey = 'term_id';
+    /**
+     * The primary key for the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'term_id';
 
-	/**
-	 * Get the User meta.
-	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\Relation
-	 */
-	public function meta(): Relation
-	{
-		return $this->hasMany(TermMeta::class, 'term_id', 'term_id');
-	}
+    /**
+     * Get the User meta.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function meta(): Relation
+    {
+        return $this->hasMany(TermMeta::class, 'term_id', 'term_id');
+    }
 }

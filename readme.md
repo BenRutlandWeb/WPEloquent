@@ -4,6 +4,7 @@ Eloquent models for WordPress
 
 ## TODO
 
+- add use guide guide to readme
 - Add more post attr/methods for easier templating
 - Document terms/taxonomy models
 - Term/post relationships with tax etc. Bit confusing TBH...
@@ -14,6 +15,8 @@ Eloquent models for WordPress
   - Taxonomy->hasMany(TermRelationship)???
   - Taxonomy->belongsTo(Term)
   - Term->hasMany(Taxonomy)
+- public repo
+- publish to packagist?
 
 ## Models
 

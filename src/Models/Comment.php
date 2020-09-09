@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use WPEloquent\Traits\HasMeta;
-use WPEloquent\Scopes\ApprovedCommentScope;
 
 class Comment extends Model
 {

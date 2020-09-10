@@ -18,6 +18,7 @@ use WPEloquent\Traits\HasMeta;
 class Post extends Model
 {
     use HasMeta;
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
     /**
      * The name of the "created at" column.
@@ -208,12 +209,26 @@ class Post extends Model
      */
     public function terms(): Relation
     {
-        return $this->hasManyThrough(
+        return $this->hasManyDeep(
+            Term::class,
+            [Taxonomy::class, TermRelationship::class], // Intermediate models, beginning at the far parent (Country).
+            [
+                'country_id', // Foreign key on the "users" table.
+                'user_id',    // Foreign key on the "posts" table.
+                'post_id'     // Foreign key on the "comments" table.
+            ],
+            [
+                'id', // Local key on the "countries" table.
+                'id', // Local key on the "users" table.
+                'id'  // Local key on the "posts" table.
+            ]
+        );
+        /*return $this->hasManyThrough(
             Taxonomy::class,
             TermRelationship::class,
             'object_id',
             'term_taxonomy_id'
-        );
+        )->with('terms');*/
     }
 
     /**

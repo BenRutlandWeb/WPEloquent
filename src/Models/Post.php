@@ -211,24 +211,18 @@ class Post extends Model
     {
         return $this->hasManyDeep(
             Term::class,
-            [Taxonomy::class, TermRelationship::class], // Intermediate models, beginning at the far parent (Country).
+            [TermRelationship::class, Taxonomy::class], // Intermediate models and tables, beginning at the far parent (User).
             [
-                'country_id', // Foreign key on the "users" table.
-                'user_id',    // Foreign key on the "posts" table.
-                'post_id'     // Foreign key on the "comments" table.
+                'object_id', // post->rel
+                'term_taxonomy_id', // rel->tax
+                'term_id', // tax->term
             ],
             [
-                'id', // Local key on the "countries" table.
-                'id', // Local key on the "users" table.
-                'id'  // Local key on the "posts" table.
-            ]
+                'ID', // post ID
+                'term_taxonomy_id', // rel ID
+                'term_id', // tax ID
+            ],
         );
-        /*return $this->hasManyThrough(
-            Taxonomy::class,
-            TermRelationship::class,
-            'object_id',
-            'term_taxonomy_id'
-        )->with('terms');*/
     }
 
     /**

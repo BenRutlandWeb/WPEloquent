@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships as HasManyDeep;
 use WPEloquent\Models\Attachment;
 use WPEloquent\Models\Comment;
 use WPEloquent\Models\PostMeta;
@@ -18,7 +19,7 @@ use WPEloquent\Traits\HasMeta;
 class Post extends Model
 {
     use HasMeta;
-    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+    use HasManyDeep;
 
     /**
      * The name of the "created at" column.
@@ -211,16 +212,16 @@ class Post extends Model
     {
         return $this->hasManyDeep(
             Term::class,
-            [TermRelationship::class, Taxonomy::class], // Intermediate models and tables, beginning at the far parent (User).
+            [TermRelationship::class, Taxonomy::class],
             [
-                'object_id', // post->rel
-                'term_taxonomy_id', // rel->tax
-                'term_id', // tax->term
+                'object_id',
+                'term_taxonomy_id',
+                'term_id',
             ],
             [
-                'ID', // post ID
-                'term_taxonomy_id', // rel ID
-                'term_id', // tax ID
+                'ID',
+                'term_taxonomy_id',
+                'term_id',
             ]
         );
     }

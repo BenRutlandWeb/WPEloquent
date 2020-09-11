@@ -4,13 +4,14 @@ namespace WPEloquent\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships as HasManyDeep;
 use WPEloquent\Models\TermMeta;
 use WPEloquent\Traits\HasMeta;
 
 class Term extends Model
 {
     use HasMeta;
-		use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+    use HasManyDeep;
 
     /**
      * Indicates if the model should be timestamped.
@@ -42,13 +43,13 @@ class Term extends Model
     {
         return $this->hasMany(TermMeta::class, 'term_id');
     }
-		
-		/**
+    
+    /**
      * Get the Term posts.
      *
      * @return \Illuminate\Database\Eloquent\Relations\Relation
      */
-		public function posts(): Relation
+    public function posts(): Relation
     {
         return $this->hasManyDeep(
             Post::class,

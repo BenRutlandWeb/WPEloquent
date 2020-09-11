@@ -5,7 +5,10 @@ namespace WPEloquent\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships as HasManyDeep;
+use WPEloquent\Models\Taxonomy;
 use WPEloquent\Models\TermMeta;
+use WPEloquent\Models\TermRelationship;
+use WPEloquent\Models\Post;
 use WPEloquent\Traits\HasMeta;
 
 class Term extends Model

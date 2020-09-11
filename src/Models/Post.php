@@ -11,6 +11,7 @@ use WPEloquent\Models\Attachment;
 use WPEloquent\Models\Comment;
 use WPEloquent\Models\PostMeta;
 use WPEloquent\Models\Taxonomy;
+use WPEloquent\Models\Term;
 use WPEloquent\Models\TermRelationship;
 use WPEloquent\Models\User;
 use WPEloquent\Scopes\PostTypeScope;

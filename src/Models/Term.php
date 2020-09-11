@@ -10,6 +10,7 @@ use WPEloquent\Traits\HasMeta;
 class Term extends Model
 {
     use HasMeta;
+		use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
     /**
      * Indicates if the model should be timestamped.
@@ -40,5 +41,28 @@ class Term extends Model
     public function meta(): Relation
     {
         return $this->hasMany(TermMeta::class, 'term_id');
+    }
+		
+		/**
+     * Get the Term posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     */
+		public function posts(): Relation
+    {
+        return $this->hasManyDeep(
+            Post::class,
+            [Taxonomy::class, TermRelationship::class],
+            [
+                'term_id',
+                'term_taxonomy_id',
+                'ID',
+            ],
+            [
+                'term_id',
+                'term_taxonomy_id',
+                'object_id',
+            ]
+        );
     }
 }

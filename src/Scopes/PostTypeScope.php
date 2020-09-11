@@ -5,6 +5,7 @@ namespace WPEloquent\Scopes;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 
 class PostTypeScope implements Scope
 {
@@ -17,6 +18,6 @@ class PostTypeScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $builder->where('post_type', '=', $model->postType);
+        $builder->whereIn('post_type', Arr::wrap($model->postType));
     }
 }

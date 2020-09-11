@@ -10,7 +10,7 @@ class Page extends Post
     /**
      * The post type for the model.
      *
-     * @var string
+     * @var array|string
      */
     public $postType = 'page';
 

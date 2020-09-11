@@ -53,7 +53,7 @@ class Post extends Model
     /**
      * The post type for the model.
      *
-     * @var string
+     * @var array|string
      */
     public $postType = 'post';
 
@@ -80,7 +80,9 @@ class Post extends Model
     }
 
     /**
-     * Get the Post content.
+     * Get the Post content. Strip HTML comments (from the block editor).
+     *
+     * @return string
      */
     public function getContentAttribute(): string
     {
@@ -89,6 +91,8 @@ class Post extends Model
 
     /**
      * Get the Post status.
+     *
+     * @return string
      */
     public function getStatusAttribute(): string
     {
@@ -97,6 +101,8 @@ class Post extends Model
 
     /**
      * Get the Post type.
+     *
+     * @return string
      */
     public function getTypeAttribute(): string
     {
@@ -105,6 +111,8 @@ class Post extends Model
 
     /**
      * Get the Post slug.
+     *
+     * @return string
      */
     public function getSlugAttribute(): string
     {

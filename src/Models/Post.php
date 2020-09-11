@@ -221,7 +221,7 @@ class Post extends Model
                 'ID', // post ID
                 'term_taxonomy_id', // rel ID
                 'term_id', // tax ID
-            ],
+            ]
         );
     }
 

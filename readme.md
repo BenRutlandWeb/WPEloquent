@@ -4,19 +4,8 @@ Eloquent models for WordPress
 
 ## TODO
 
-- add use guide guide to readme
-- Add more post attr/methods for easier templating
-- Document terms/taxonomy models
-- Term/post relationships with tax etc. Bit confusing TBH...
-  - [WPDB schema](https://codex.wordpress.org/images/8/83/WP_27_dbsERD.png)
-  - Post->hasMany(TermRelationship)???
-  - TermRelationship->belongsTo(Post)???
-  - TermRelationship->belongsTo(Taxonomy)???
-  - Taxonomy->hasMany(TermRelationship)???
-  - Taxonomy->belongsTo(Term)
-  - Term->hasMany(Taxonomy)
-- public repo
-- publish to packagist?
+- [ ] add use guide guide to readme/wiki
+- [ ] Document terms/taxonomy models
 
 ## Models
 
@@ -31,8 +20,8 @@ Eloquent models for WordPress
 - Comment
 - CommentMeta
 - Option
-- ~~Taxonomy~~
-- ~~TermRelationship~~
+- Taxonomy
+- TermRelationship
 
 ## Usage
 

@@ -2,12 +2,12 @@
 
 Eloquent models for WordPress
 
-## TODO
+## Introduction
 
-- [ ] add use guide guide to readme/wiki
-- [ ] Document terms/taxonomy models
+WPEloquent uses Laravel's [Eloquent ORM](https://laravel.com/docs/8.x/eloquent)
+to interact with WordPress' database.
 
-## Models
+WPEloquent comes with the following Models:
 
 - Post
 - Page
@@ -23,7 +23,17 @@ Eloquent models for WordPress
 - Taxonomy
 - TermRelationship
 
-## Usage
+---
+
+## Getting started
+
+Install the brw/wp-eloquent package
+
+```bash
+composer require brw/wp-eloquent
+```
+
+If not using composer, download and unpack the
 
 _functions.php_
 
@@ -31,6 +41,8 @@ _functions.php_
 <?php
 
 use WPEloquent\Database;
+
+require __DIR__ . '/vendor/autoload.php';
 
 // Basic usage
 Database::connect();
@@ -51,7 +63,9 @@ Database::connect(
 );
 ```
 
-_index.php_
+## The basics
+
+Full documentation on the Fluent API: [Eloquent ORM](https://laravel.com/docs/8.x/eloquent).
 
 ```php
 <?php
@@ -60,11 +74,59 @@ use WPEloquent\Models\Post;
 
 $posts = Post::limit(10)->where('post_status', 'publish')->get();
 
-$posts->each(function($post) {
-    // extract into a partial
-    echo '<h2>' . $post->title . '</h2>';
-    echo '<p>' . $post->author->email . '</p>';
-
+foreach ($posts as $post) : ?>
+    <h2><?php echo $post->title; ?></h2>
+    <p><?php echo $post->author->email; ?></p>
+<?php endforeach;
 });
 
+```
+
+---
+
+## Extending Models
+
+You can easily extend Models for Custom Post Types, or implement new Models for
+custom tables.
+
+### Custom Post Type
+
+Define a new Model. For a custom post type, it's easiest to extend the
+WPEloquent Post model, and change the `$postType` property.
+
+```php
+<?php
+
+use WPEloquent\Models\Post;
+
+class CustomPostType extends Post
+{
+    /**
+     * The post type for the model.
+     *
+     * @var array|string
+     */
+    $postType = 'custom_post_type';
+}
+```
+
+### Custom Model
+
+To define a Model for a custom table, extend the WPEloquent Model and set the
+`$table` property to the name of the table. This will be prefixe automatically.
+
+```php
+<?php
+
+use WPEloquent\Models\Model;
+
+class CustomTable extends Model
+{
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'custom_table';
+}
 ```

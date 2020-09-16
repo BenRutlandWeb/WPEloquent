@@ -21,9 +21,11 @@ class Database
      */
     public static function connect(array $options = []): Manager
     {
+        global $wpdb;
+
         $defaults = [
             'driver'    => 'mysql',
-            'prefix'    => 'wp_',
+            'prefix'    => $wpdb->prefix,
             'host'      => DB_HOST,
             'database'  => DB_NAME,
             'username'  => DB_USER,

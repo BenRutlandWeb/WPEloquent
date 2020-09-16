@@ -9,7 +9,6 @@
   "require": {
     "php": "^7.0",
     "illuminate/database": "^7.27",
-    "illuminate/support": "^7.27",
     "staudenmeir/eloquent-has-many-deep": "^1.7"
   },
   "license": "MIT",

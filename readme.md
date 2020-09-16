@@ -63,6 +63,9 @@ Database::connect(
 
 ## The basics
 
+Each model has relationships defined to interact with other models. As an 
+example, the Post model has terms, author, comments and so on.
+
 Full documentation on the Fluent API: [Eloquent ORM](https://laravel.com/docs/8.x/eloquent).
 
 ```php
@@ -76,8 +79,6 @@ foreach ($posts as $post) : ?>
     <h2><?php echo $post->title; ?></h2>
     <p><?php echo $post->author->email; ?></p>
 <?php endforeach;
-});
-
 ```
 
 ---
@@ -111,7 +112,7 @@ class CustomPostType extends Post
 ### Custom Model
 
 To define a Model for a custom table, extend the WPEloquent Model and set the
-`$table` property to the name of the table. This will be prefixe automatically.
+`$table` property to the name of the table. This will be prefixed automatically.
 
 ```php
 <?php
@@ -128,3 +129,9 @@ class CustomTable extends Model
     protected $table = 'custom_table';
 }
 ```
+
+### TODO
+- [ ] DB facade
+- [ ] Update database connection to use `$wpdb` rather than creating a new connection.
+- [ ] Improve database class to connect with a nicer API
+- [ ] Add more documentation on Model relationships

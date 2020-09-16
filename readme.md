@@ -33,8 +33,6 @@ Install the brw/wp-eloquent package
 composer require brw/wp-eloquent
 ```
 
-If not using composer, download and unpack the
-
 _functions.php_
 
 ```php
